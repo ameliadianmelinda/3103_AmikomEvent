@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\PartnerController;
 
 // Rute User Area
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -22,5 +23,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::delete('events/destroy/{event}', [AdminEventController::class, 'destroy'])->name('events.destroy');
     Route::get('events/edit/{event}', [AdminEventController::class, 'edit'])->name('events.edit');
     Route::put('events/update/{event}', [AdminEventController::class, 'update'])->name('events.update');
+    Route::get('partners', [PartnerController::class, 'index'])->name('partners.index');
+    Route::get('partners/create', [PartnerController::class, 'create'])->name('partners.create');
+    Route::post('partners', [PartnerController::class, 'store'])->name('partners.store');
     // dan seterusnya...
 });
