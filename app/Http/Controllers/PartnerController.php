@@ -7,10 +7,13 @@ use App\Models\Partner;
 
 class PartnerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $partners = Partner::all();
-
+        $query = Partner::query();
+        if ($request->filled('search')) {
+            $query->where('name', 'LIKE', '%' . $request->search . '%');
+        }
+        $partners = $query->orderBy('id', 'desc')->get();
         return view('admin.partners.index', compact('partners'));
     }
 
@@ -25,8 +28,30 @@ class PartnerController extends Controller
             'name' => $request->name,
             'logo_url' => $request->logo_url,
         ]);
-
         return redirect('/admin/partners');
     }
 
+    public function edit(Partner $partner)
+    {
+        return view('admin.partners.edit', compact('partner'));
+    }
+
+    public function update(Request $request, Partner $partner)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'logo_url' => 'required|string|max:255',
+        ]);
+        $partner->update([
+            'name' => $request->name,
+            'logo_url' => $request->logo_url,
+        ]);
+        return redirect()->route('admin.partners.index')->with('success', 'Partner berhasil diubah.');
+    }
+
+    public function destroy(Partner $partner)
+    {
+        $partner->delete();
+        return redirect()->route('admin.partners.index')->with('success', 'Partner berhasil dihapus.');
+    }
 }

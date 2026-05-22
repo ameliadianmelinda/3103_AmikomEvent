@@ -26,5 +26,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('partners', [PartnerController::class, 'index'])->name('partners.index');
     Route::get('partners/create', [PartnerController::class, 'create'])->name('partners.create');
     Route::post('partners', [PartnerController::class, 'store'])->name('partners.store');
+    Route::get('partners/edit/{partner}', [PartnerController::class, 'edit'])->name('partners.edit');
+    Route::put('partners/update/{partner}', [PartnerController::class, 'update'])->name('partners.update');
+    Route::delete('partners/destroy/{partner}', [PartnerController::class, 'destroy'])->name('partners.destroy');
+    Route::get('categories', [\App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('categories.index');
+    Route::get('categories/create', [\App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('categories.create');
+    Route::post('categories', [\App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('categories.store');
+    Route::get('categories/edit/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('categories.edit');
+    Route::put('categories/update/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('categories.update');
+    Route::delete('categories/destroy/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'destroy'])->name('categories.destroy');
     // dan seterusnya...
 });

@@ -43,7 +43,25 @@
         </div> -->
     </nav>
 
+
     @yield('content')
+
+    {{-- Partner Marquee --}}
+    @isset($partners)
+    <section class="w-full bg-[#f7f9fa] border-t border-slate-100 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-extrabold text-center mb-4 text-slate-800">Partner & Sponsor</h2>
+            <p class="text-xl text-center text-slate-400 mb-12">Didukung oleh perusahaan dan komunitas terpercaya</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 justify-center items-center">
+                @foreach($partners as $partner)
+                    <div class="flex items-center justify-center h-32 bg-slate-200 rounded-md">
+                        <span class="text-4xl font-bold text-slate-400">{{ $partner->name }}</span>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endisset
 
     <!-- Footer -->
     <footer class="bg-indigo-900 text-indigo-100 py-20 px-6 mt-20">
